@@ -5,6 +5,10 @@ import random
 
 from cloudplugs import CloudPlugs
 
+## Edit the next lines with your authentication data
+AUTH_PLUGID = "dev-xxxxxxxxxxxxxxxxxx" # The device plug ID or your CloudPlugs account id if AUTH_MASTER is True
+AUTH_PASS = "your-password" # The device connection password or your CloudPlugs account password if AUTH_MASTER is True
+AUTH_MASTER = True
 
 def jdebug(tag, cp_res, cps):
     try:
@@ -19,16 +23,15 @@ def jdebug(tag, cp_res, cps):
 
 def main():
     cps = CloudPlugs()
-    
-    ##Edit next line with your authentication data
-    cps.set_auth("dev-5359d2857b97bb8946b2584f", "password", True)
+
+    cps.set_auth(AUTH_PLUGID, AUTH_PASS, AUTH_MASTER)
 
     channel = "temperature"
     value = random.randint(0, 100)
     data = {'data': value}
     cp_res = cps.publish_data(channel, data)
     jdebug("PUBLISHED DATA OID", cp_res, cps)
-    
+
     del cps
 
 if __name__ == '__main__':
